@@ -65,8 +65,18 @@ private extension ProfileUIView {
         addSubview(viewForButtons)
         viewForTags.addSubview(tagLbl)
         tagLbl.text = "Tags:"
-        let texts = ["OOR", "One Ok Rock", "Rock", "Japanese", "Concert", "Cooking", "French", "..."]
-        for tagText in texts {
+        let texts = ["OOR", "One Ok Rock", "Rock", "Japanese", "Concert", "Cooking", "French"]
+        var tagTexts = [String]()
+        if texts.count > 5 {
+            for i in 0..<5 {
+                let text = texts[i]
+                tagTexts.append(text)
+            }
+            tagTexts.append("...")
+        } else {
+            tagTexts = texts
+        }
+        for tagText in tagTexts {
             let tag = UILabel()
             tag.text = tagText
             tags.append(tag)
@@ -229,17 +239,6 @@ extension ProfileUIView {
         timeElapsedLbl.text = "14 min ago"
         countsOfLikeLbl.text = "63"
         numberOfCommentsLbl.text = "41"
-        /*tagLbl.text = "Tags:"
-        let texts = ["OOR", "One Ok Rock", "Rock", "Japanese", "Concert", "Cooking", "French", "..."]
-        var tagTexts = [String]()
-        for i in 0..<texts.count {
-            let tagText = texts[i]
-            tagTexts.append(tagText)
-        for tagText in tagTexts {
-            let tag = UILabel()
-            tag.text = tagText
-            tags.append(tag)
-        }*/
         likeButton.setImage(UIImage(named:"like"), forState: .Normal)
         shareButton.setImage(UIImage(named:"share"), forState: .Normal)
         starButton.setImage(UIImage(named:"star"), forState: .Normal)

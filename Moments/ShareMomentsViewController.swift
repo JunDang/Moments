@@ -28,7 +28,6 @@ class ShareMomentsViewController: UIViewController {
         tapOnthePicture()
         setupNavigationbar()
         
-        
         commentsArray = ["The Comments box lets people comment on content on your site using their Facebook profile and shows this activity to their friends in news feed", "good one"]
        
     }
