@@ -26,6 +26,7 @@ class ShareMomentsViewController: UIViewController {
         setStyle()
         render()
         tapOnthePicture()
+        setupNavigationbar()
         
         
         commentsArray = ["The Comments box lets people comment on content on your site using their Facebook profile and shows this activity to their friends in news feed", "good one"]
@@ -100,6 +101,7 @@ extension ShareMomentsViewController {
         }
     }
 }
+
 extension ShareMomentsViewController {
     func setStyle() {
         leaveCommentButton.layer.backgroundColor = UIColor(red: (155/255.0), green: (0/255.0), blue: (0/255.0), alpha: 1.0).CGColor
@@ -109,11 +111,13 @@ extension ShareMomentsViewController {
         leaveCommentButton.titleLabel!.font = UIFont.latoLightFontOfSize(14)
     }
 }
+
 extension ShareMomentsViewController {
     func render() {
         leaveCommentButton.setTitle("Leave a Comment", forState: .Normal)
     }
 }
+
 extension ShareMomentsViewController {
     func tapOnthePicture() {
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ShareMomentsViewController.imageTapped(_:)))
@@ -137,4 +141,30 @@ extension ShareMomentsViewController {
         return true
     }
 
+}
+//MARK: add navigation bar
+extension ShareMomentsViewController: UINavigationControllerDelegate, UINavigationBarDelegate {
+    func setupNavigationbar() {
+        let navigationBar = UINavigationBar(frame: CGRectMake(0, 0, self.view.frame.size.width, 40))
+        navigationBar.backgroundColor = UIColor(red: (224/255.0), green: (224/255.0), blue: (224/255.0), alpha: 0.5)
+        navigationBar.tintColor = UIColor.whiteColor()
+        navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.delegate = self
+        let navigationItem = UINavigationItem()
+        let returnButton = UIButton(frame: CGRectMake(0, 0, 30, 30))
+        returnButton.setImage(UIImage(named: "backArrow"), forState: .Normal)
+        //assign button to navigationbar
+        let returnButtonItem = UIBarButtonItem(customView: returnButton)
+        navigationItem.leftBarButtonItem = returnButtonItem
+        navigationBar.titleTextAttributes =
+            [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        let locationButton = UIButton(frame: CGRectMake(0, 0, 30, 30))
+        locationButton.setImage(UIImage(named:"location"), forState: .Normal)
+        //assign button to navigationbar
+        let locationButtonItem = UIBarButtonItem(customView: locationButton)
+        navigationItem.rightBarButtonItem = locationButtonItem
+        navigationBar.items = [navigationItem]
+        self.view.addSubview(navigationBar)
+   }
 }

@@ -27,20 +27,13 @@ class ProfileUIView: UIView {
     var starButton = UIButton()
     var viewForTags = UIView()
     var tagLbl = UILabel()
-    var tag1 = UILabel()
-    var tag2 = UILabel()
-    var tag3 = UILabel()
-    var tag4 = UILabel()
-    var tag5 = UILabel()
-    var tag6 = UILabel()
-    
+    var tags = [UILabel]()
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
         setStyle()
         render()
     }
-    
     required init(coder aDecoder : NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -71,12 +64,16 @@ private extension ProfileUIView {
         viewForButtons.addSubview(starButton)
         addSubview(viewForButtons)
         viewForTags.addSubview(tagLbl)
-        viewForTags.addSubview(tag1)
-        viewForTags.addSubview(tag2)
-        viewForTags.addSubview(tag3)
-        viewForTags.addSubview(tag4)
-        viewForTags.addSubview(tag5)
-        viewForTags.addSubview(tag6)
+        tagLbl.text = "Tags:"
+        let texts = ["OOR", "One Ok Rock", "Rock", "Japanese", "Concert", "Cooking", "French", "..."]
+        for tagText in texts {
+            let tag = UILabel()
+            tag.text = tagText
+            tags.append(tag)
+        }
+        for tag in tags {
+            viewForTags.addSubview(tag)
+        }
         addSubview(viewForTags)
     }
 }
@@ -166,40 +163,24 @@ private extension ProfileUIView {
             $0.bottom == $0.superview!.bottom - 2
             $0.top == $0.superview!.top + 2
         }
-        constrain(tag1, tagLbl) {
-            $0.left == $1.right + 5
-            $0.top == $1.top
-            $0.bottom == $1.bottom
+        constrain(tagLbl) {
+            $0.left == $0.superview!.left + 6
+            $0.bottom == $0.superview!.bottom - 2
+            $0.top == $0.superview!.top + 2
         }
-        constrain(tag2, tag1) {
-            $0.left == $1.right + 5
-            $0.top == $1.top
-            $0.bottom == $1.bottom
-        }
-        constrain(tag3, tag2) {
-            $0.left == $1.right + 5
-            $0.top == $1.top
-            $0.bottom == $1.bottom
-        }
-        constrain(tag4, tag3) {
-            $0.left == $1.right + 5
-            $0.top == $1.top
-            $0.bottom == $1.bottom
-        }
-        constrain(tag4, tag3) {
-            $0.left == $1.right + 5
-            $0.top == $1.top
-            $0.bottom == $1.bottom
-        }
-        constrain(tag5, tag4) {
-            $0.left == $1.right + 5
-            $0.top == $1.top
-            $0.bottom == $1.bottom
-        }
-        constrain(tag6, tag5) {
-            $0.left == $1.right + 5
-            $0.top == $1.top
-            $0.bottom == $1.bottom
+        if tags.count > 0 {
+            constrain(tags[0], tagLbl) {
+                $0.left == $1.right + 5
+                $0.top == $1.top
+                $0.bottom == $1.bottom
+            }
+            for index in 1..<tags.count {
+                constrain(tags[index], tags[index - 1]) {
+                    $0.left == $1.right + 5
+                    $0.top == $1.top
+                    $0.bottom == $1.bottom
+                }
+            }			
         }
     }
 }
@@ -231,39 +212,13 @@ private extension ProfileUIView {
         tagLbl.textAlignment = .Left
         tagLbl.numberOfLines = 0
         tagLbl.sizeToFit()
-        tag1.font = UIFont.latoFontOfSize(10)
-        tag1.textAlignment = .Left
-        tag1.numberOfLines = 0
-        tag1.sizeToFit()
-        tag1.textColor = UIColor(red: (155/255.0), green: (0/255.0), blue: (0/255.0), alpha: 1.0)
-        tag2.font = UIFont.latoFontOfSize(10)
-        tag2.textAlignment = .Left
-        tag2.numberOfLines = 0
-        tag2.sizeToFit()
-        tag2.textColor = UIColor(red: (155/255.0), green: (0/255.0), blue: (0/255.0), alpha: 1.0)
-        tag3.font = UIFont.latoFontOfSize(10)
-        tag3.textAlignment = .Left
-        tag3.numberOfLines = 0
-        tag3.sizeToFit()
-        tag3.textColor = UIColor(red: (155/255.0), green: (0/255.0), blue: (0/255.0), alpha: 1.0)
-        tag4.font = UIFont.latoFontOfSize(10)
-        tag4.numberOfLines = 0
-        tag4.textAlignment = .Left
-        tag4.sizeToFit()
-        tag4.textColor = UIColor(red: (155/255.0), green: (0/255.0), blue: (0/255.0), alpha: 1.0)
-        tag5.font = UIFont.latoFontOfSize(10)
-        tag5.textAlignment = .Left
-        tag5.numberOfLines = 0
-        tag5.sizeToFit()
-        tag5.textColor = UIColor(red: (155/255.0), green: (0/255.0), blue: (0/255.0), alpha: 1.0)
-        tag6.font = UIFont.latoFontOfSize(10)
-        tag6.textAlignment = .Left
-        tag6.numberOfLines = 0
-        tag6.sizeToFit()
-        tag6.textColor = UIColor(red: (155/255.0), green: (0/255.0), blue: (0/255.0), alpha: 1.0)
-        /*likeButton.layer.cornerRadius = 0.5 * 30
-        shareButton.layer.cornerRadius = 0.5 * 30
-        starButton.layer.cornerRadius = 0.5 * 30*/
+        for tag in tags {
+            tag.font = UIFont.latoFontOfSize(10)
+            tag.textAlignment = .Left
+            tag.numberOfLines = 0
+            tag.sizeToFit()
+            tag.textColor = UIColor(red: (155/255.0), green: (0/255.0), blue: (0/255.0), alpha: 1.0)
+        }
     }
 }
 //Render
@@ -274,19 +229,23 @@ extension ProfileUIView {
         timeElapsedLbl.text = "14 min ago"
         countsOfLikeLbl.text = "63"
         numberOfCommentsLbl.text = "41"
-        tagLbl.text = "Tags:"
-        tag1.text = "OOR"
-        tag2.text = "One Ok Rock"
-        tag3.text = "Rock"
-        tag4.text = "Japanese"
-        tag5.text = "Concert"
-        tag6.text = "..."
+        /*tagLbl.text = "Tags:"
+        let texts = ["OOR", "One Ok Rock", "Rock", "Japanese", "Concert", "Cooking", "French", "..."]
+        var tagTexts = [String]()
+        for i in 0..<texts.count {
+            let tagText = texts[i]
+            tagTexts.append(tagText)
+        for tagText in tagTexts {
+            let tag = UILabel()
+            tag.text = tagText
+            tags.append(tag)
+        }*/
         likeButton.setImage(UIImage(named:"like"), forState: .Normal)
         shareButton.setImage(UIImage(named:"share"), forState: .Normal)
         starButton.setImage(UIImage(named:"star"), forState: .Normal)
         likeImageView.image = UIImage(named: "likeCounts")
         commentImageView.image = UIImage(named: "commentCounts")
-     }
+   }
 }
 
 
