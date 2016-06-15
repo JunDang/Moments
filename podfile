@@ -1,0 +1,8 @@
+use_frameworks!
+inhibit_all_warnings!
+
+target ‘Moments’ do
+    pod 'Cartography', :git => "https://github.com/robb/Cartography.git", :tag => '0.6.0'
+    pod 'SwiftyJSON', '~> 2.3.0'
+    pod 'LatoFont', :git => "https://github.com/gscalzo/LatoFont.git"
+ end

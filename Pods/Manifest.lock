@@ -1,0 +1,33 @@
+PODS:
+  - Cartography (0.5.0)
+  - LatoFont (1.0.1)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - Cartography (from `https://github.com/robb/Cartography.git`, tag `0.6.0`)
+  - LatoFont (from `https://github.com/gscalzo/LatoFont.git`)
+  - SwiftyJSON (~> 2.3.0)
+
+EXTERNAL SOURCES:
+  Cartography:
+    :git: https://github.com/robb/Cartography.git
+    :tag: 0.6.0
+  LatoFont:
+    :git: https://github.com/gscalzo/LatoFont.git
+
+CHECKOUT OPTIONS:
+  Cartography:
+    :git: https://github.com/robb/Cartography.git
+    :tag: 0.6.0
+  LatoFont:
+    :commit: 2739e4c28c92c82ca2c7daf289a238d62af01c42
+    :git: https://github.com/gscalzo/LatoFont.git
+
+SPEC CHECKSUMS:
+  Cartography: 314f5ed1495995760487161eeb7a8a0940d88ad3
+  LatoFont: 0bfeace154ee2da6080123d0e80560f6e22b187d
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+PODFILE CHECKSUM: 41428239ad91da079de99f33af7bcd656f275d05
+
+COCOAPODS: 1.0.0
